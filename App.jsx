@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar';          // menú hamburguesa de cat
 import SidebarCarrito from './components/SidebarCarrito'; // carrito lateral
 
 function App() {
+  console.log("Renderizando App");
   return (
     <div>
       {/* Barra lateral de categorías */}
