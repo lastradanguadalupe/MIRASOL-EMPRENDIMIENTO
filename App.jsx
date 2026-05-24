@@ -1,27 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Importo todos los componentes
-import Inicio from './components/Inicio';
-import Catalogo from './components/Catalogo';
-import Pago from './components/Pago';
-import Sidebar from './components/Sidebar';          // menú hamburguesa de categorías
-import SidebarCarrito from './components/SidebarCarrito'; // carrito lateral
+import Inicio from './src/components/Inicio';
+import Catalogo from './src/components/Catalogo';
+import Pago from './src/components/Pago';
 
 function App() {
-  console.log("Renderizando App");
+  // ESTADO GLOBAL DEL CARRITO
+  const [carrito, setCarrito] = useState([]);
+
+  // Función global para añadir productos
+  const agregarAlCarrito = (producto) => {
+    setCarrito((carritoActual) => {
+      // Si el producto ya existe en el carrito, le sumamos 1 a la cantidad
+      const existe = carritoActual.find(item => item.id === producto.id);
+      if (existe) {
+        return carritoActual.map(item => 
+          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+        );
+      }
+      // Si es nuevo, lo agregamos con cantidad 1
+      return [...carritoActual, { ...producto, cantidad: 1 }];
+    });
+  };
+  const eliminarDelCarrito = (idProducto) => {
+    setCarrito((carritoActual) => 
+      carritoActual.filter(item => item.id !== idProducto)
+    );
+  };
+
   return (
-    <div>
-      {/* Barra lateral de categorías */}
-      <Sidebar />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        
+        {/* Le pasamos la nueva función al catálogo */}
+        <Route path="/catalogo" element={
+          <Catalogo 
+            carrito={carrito} 
+            onAgregarProducto={agregarAlCarrito} 
+            onEliminarProducto={eliminarDelCarrito} /* <--- Pasamos la prop */
+          />
+        } />
 
-      {/* Barra lateral del carrito */}
-      <SidebarCarrito />
-
-      {/* Pantallas principales */}
-      <Inicio />
-      <Catalogo />
-      <Pago />
-    </div>
+        <Route path="/pago" element={<Pago carrito={carrito} />} />
+      </Routes>
+    </Router>
   );
 }
 
