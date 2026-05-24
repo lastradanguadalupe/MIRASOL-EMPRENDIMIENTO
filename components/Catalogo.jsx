@@ -1,144 +1,143 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Catalogo.module.css';
+import SidebarCarrito from './SidebarCarrito'; 
 
-// Funciones mínimas para evitar errores
-function irAInicio() {
-  console.log("Ir a inicio");
-}
-function toggleFiltros() {
-  console.log("Abrir/cerrar filtros");
-}
-function toggleMenu() {
-  console.log("Abrir/cerrar carrito");
-}
-function abrirModal(img) {
-  console.log("Abrir modal con imagen:", img.src);
-}
-function cerrarModal(e) {
-  console.log("Cerrar modal");
-}
-function agregarAlCarrito(producto, precio) {
-  console.log(`Agregado al carrito: ${producto} - $${precio}`);
-}
-function filtrarMates(tipo) {
-  console.log("Filtrar mates:", tipo);
-}
+const LISTA_PRODUCTOS = [
+  {
+    id: 1,
+    categoria: 'imperial',
+    img: './assets/mate1.jpeg',
+    titulo: 'Mate Imperial virola de alpaca cincelada',
+    desc: 'De calabaza forrado en cuero con costura uruguaya. Fleje de alpaca. Colores negro, marrón y borravino.',
+    precio: 46400
+  },
+  {
+    id: 2,
+    categoria: 'imperial',
+    img: './assets/mateimpliso.jpeg',
+    titulo: 'Mate Imperial virola de alpaca lisa',
+    desc: 'De calabaza forrado en cuero con costura uruguaya. Fleje de alpaca. Colores negro, marrón y borravino.',
+    precio: 43200
+  },
+  {
+    id: 3,
+    categoria: 'imperial',
+    img: './assets/impafa',
+    titulo: 'Mate Imperial AFA',
+    desc: 'De calabaza forrado en cuero con costura uruguaya. Aro de bronce. Escudo AFA de bronce. Virola de alpaca.',
+    precio: 67200
+  },
+  {
+    id: 4,
+    categoria: 'camionero',
+    img: './assets/foto-mate.jpeg',
+    titulo: 'Mate Camionero Premium',
+    desc: 'Cuero legítimo, base reforzada con costura uruguaya ideal para el día a día.',
+    precio: 18000
+  },
+  {
+    id: 5,
+    categoria: 'camionero',
+    img: './assets/matedealp.jpeg',
+    titulo: 'Mate Camionero de Alpaca',
+    desc: 'Costura uruguaya, virola de alpaca cincelada.',
+    precio: 22000
+  },
+  {
+    id: 6,
+    categoria: 'criollo',
+    img: './assets/matecriollo.jpeg',
+    titulo: 'Mate Criollo',
+    desc: 'De calabaza pulida con base de cuero crudo cocida en tiento.',
+    precio: 22000
+  },
+  {
+    id: 7,
+    categoria: 'torpedo',
+    img: './assets/topliso.jpeg',
+    titulo: 'Mate Torpedo virola de acero lisa',
+    desc: 'De calabaza forrado en cuero con costura uruguaya. Colores negro, marrón y borravino.',
+    precio: 31500
+  }
+];
 
-function Catalogo() {
+
+function Catalogo({ carrito, onAgregarProducto, onEliminarProducto }) {
+  const navigate = useNavigate();
+  const [filtrosAbiertos, setFiltrosAbiertos] = useState(false);
+  const [categoriaActiva, setCategoriaActiva] = useState('todos');
+  const [carritoAbierto, setCarritoAbierto] = useState(false);
+
+  const totalItemsEnCarrito = carrito.reduce((acumulador, item) => acumulador + item.cantidad, 0);
+
+  function filtrarMates(tipo) {
+    setCategoriaActiva(tipo);
+    setFiltrosAbiertos(false);
+  }
+
+  function toggleMenu() { 
+    setCarritoAbierto(true); 
+  }
+  
+  function abrirModal(img) { console.log("Abrir modal", img.src); }
+
+  const productosFiltrados = categoriaActiva === 'todos' 
+    ? LISTA_PRODUCTOS 
+    : LISTA_PRODUCTOS.filter(p => p.categoria === categoriaActiva);
+
   return (
     <div id="pantalla-catalogo" className={styles.catalogo}>
+      
+      
+      <SidebarCarrito 
+        isOpen={carritoAbierto} 
+        onClose={() => setCarritoAbierto(false)} 
+        carrito={carrito}
+        onEliminarItem={onEliminarProducto} 
+      />
+
+      
+      <div className={styles.menuFiltrosIcono} onClick={() => setFiltrosAbiertos(true)}>
+        <span></span><span></span><span></span>
+      </div>
+
       <header className={styles.headerTienda}>
         <h2>Nuestro Catálogo</h2>
       </header>
 
-      <div className={styles.contenedorLogoEsquina}>
-        <img src="../assets/logo.png" className={styles.logoMarca} onClick={() => irAInicio()} />
-      </div>
-
-      {/* Botón menú filtros */}
-      <div className={styles.menuFiltrosIcono} onClick={() => toggleFiltros()}>
-        <span></span><span></span><span></span>
-      </div>
-
-      {/* Botón flotante carrito */}
-      <button className={styles.botonFlotante} onClick={() => toggleMenu()}>
-        🛒 Mi Carrito
+      
+      <button className={styles.botonFlotante} onClick={toggleMenu}>
+        🛒 Mi Carrito ({totalItemsEnCarrito})
       </button>
 
-      {/* Sidebar filtros */}
-      <div id="sidebar-filtros" className={styles.sidebarFiltros}>
-        <button className={styles.cerrarFiltros} onClick={() => toggleFiltros()}>×</button>
+      
+      <div className={`${styles.sidebarFiltros} ${filtrosAbiertos ? styles.open : ''}`}>
+        <button className={styles.cerrarFiltros} onClick={() => setFiltrosAbiertos(false)}>×</button>
         <ul>
-          <li onClick={() => filtrarMates('todos')}>Todos</li>
+          <li onClick={() => filtrarMates('todos')}>Todos los Modelos</li>
           <li onClick={() => filtrarMates('imperial')}>Mates Imperiales</li>
           <li onClick={() => filtrarMates('camionero')}>Mates Camioneros</li>
+          <li onClick={() => filtrarMates('criollo')}>Mates Criollos</li>
           <li onClick={() => filtrarMates('torpedo')}>Mates Torpedo</li>
-          <li onClick={() => filtrarMates('bombillas')}>Bombillas</li>
-          <li onClick={() => filtrarMates('termos')}>Termos</li>
-          <li onClick={() => filtrarMates('yerbas')}>Yerbas</li>
         </ul>
       </div>
 
-      {/* Grilla de productos */}
+      {/* Grilla de productos dinámica */}
       <section className={styles.grillaProductos}>
-        <div className={`${styles.tarjetaMate} imperial`}>
-            <img src="../assets/mate1.jpeg" alt="Mate Imperial virola de alpaca cincelada" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Imperial virola de alpaca cincelada</h3>
-            <p>De calabaza forrado en cuero con costura uruguaya. Fleje de alpaca. Colores negro, marrón y borravino</p>
-            <span className={styles.precio}>$46.400</span>
-            <button onClick={() => agregarAlCarrito('Mate Imperial', 46400)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} imperial`}>
-            <img src="../assets/mateimpliso.jpeg" alt="Mate Imperial virola de alpaca lisa" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Imperial virola de alpaca lisa</h3>
-            <p>De calabaza forrado en cuero con costura uruguaya. Fleje de alpaca. Colores negro, marrón y borravino</p>
-            <span className={styles.precio}>$43.200</span>
-            <button onClick={() => agregarAlCarrito('Mate Imperial', 43200)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} imperial`}>
-            <img src="../assets/impafa.jpeg" alt="Mate Imperial AFA" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Imperial AFA</h3>
-            <p>-De calabaza forrado en cuero con costura uruguaya - Aro de bronce - Escudo AFA de bronce - Virola de alpaca cincelada </p>
-            <span className={styles.precio}>$67.200</span>
-            <button onClick={() => agregarAlCarrito('Mate Imperial', 67200)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} camionero`}>
-            <img src="../assets/foto-mate.jpeg" alt="Mate Camionero" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Camionero</h3>
-            <p>Cuero legítimo, base reforzada.</p>
-            <span className={styles.precio}>$18.000</span>
-            <button onClick={() => agregarAlCarrito('Mate Camionero', 18000)}>Agregar al carrito</button>
-        </div>  
-        <div className={`${styles.tarjetaMate} camionero`}>
-            <img src="../assets/matedealp.jpeg" alt="Mate Camionero de Alpaca" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Camionero de Alpaca</h3>
-            <p>Costura uruguaya, virola de alpaca cincelada</p>
-            <span className={styles.precio}>$22.000</span>
-            <button onClick={() => agregarAlCarrito('Mate Camionero de Alpaca', 22000)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} criollo`}>
-            <img src="../assets/matecriollo.jpeg" alt="Mate Criollo" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Criollo</h3>
-            <p>De calabaza pulida con base de cuero crudo cocida en tiento</p>
-            <span className={styles.precio}>$22.000</span>
-            <button onClick={() => agregarAlCarrito('Mate Criollo', 22000)}>Agregar al carrito</button>
-        </div>    
-        <div className={`${styles.tarjetaMate} criollo`}>
-            <img src="../assets/matecriolloalp.jpeg" alt="Mate Criollo con virola de alpaca" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Criollo con virola de alpaca</h3>
-            <p>De calabaza pulida con base de cuero crudo cocida en tiento</p>
-            <span className={styles.precio}>$22.000</span>
-            <button onClick={() => agregarAlCarrito('Mate Criollo con virola de alpaca', 22000)}>Agregar al carrito</button>
-        </div>     
-        <div className={`${styles.tarjetaMate} camionero`}>
-            <img src="../assets/matedeb.jpeg" alt="Mate Camionero de Bronce" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Camionero de Bronce</h3>
-            <p>Costura uruguaya, virola de alpaca cincelada</p>
-            <span className={styles.precio}>$22.000</span>
-            <button onClick={() => agregarAlCarrito('Mate Camionero de Bronce', 22000)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} torpedo`}>
-            <img src="../assets/topliso.jpeg" alt="Mate Mate Torpedo con virola de acero lisa" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Mate Torpedo con virola de acero lisa</h3>
-            <p>De calabaza forrado en cuero con costura uruguaya. Colores negro, marron y borravino</p>
-            <span className={styles.precio}>$31.500</span>
-            <button onClick={() => agregarAlCarrito('Mate Mate Torpedo con virola de acero lisa', 31500)}>Agregar al carrito</button>
-        </div>
-        <div className={`${styles.tarjetaMate} torpedo`}>
-            <img src="../assets/topcincelado.jpeg" alt="Mate Mate Torpedo con virola de acero cincelada" onClick={(e) => abrirModal(e.target)} />
-            <h3>Mate Mate Torpedo con virola de acero cincelada</h3>
-            <p>De calabaza forrado en cuero con costura uruguaya. Colores negro, marron y borravino</p>
-            <span className={styles.precio}>$45.600</span>
-            <button onClick={() => agregarAlCarrito('Mate Mate Torpedo con virola de acero cincelada', 45600)}>Agregar al carrito</button>
-        </div>
+        {productosFiltrados.map((producto) => (
+          <div key={producto.id} className={styles.tarjetaMate}>
+              <img src={producto.img} alt={producto.titulo} onClick={(e) => abrirModal(e.target)} />
+              <h3>{producto.titulo}</h3>
+              <p>{producto.desc}</p>
+              <span className={styles.precio}>${producto.precio.toLocaleString('es-AR')}</span>
+              
+              <button onClick={() => onAgregarProducto(producto)}>
+                Agregar al carrito
+              </button>
+          </div>
+        ))}
       </section>
-
-      {/* Modal de imagen */}
-      <div id="modal-imagen" className={styles.modal} onClick={(e) => cerrarModal(e)}>
-        <span className={styles.cerrarModal}>&times;</span>
-        <img className={styles.contenidoModal} id="imagen-grande" />
-        <div id="descripcion-modal"></div>
-      </div>
     </div>
   );
 }
