@@ -1,41 +1,210 @@
-.sliderContainer {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+
+/* Contenedor global de la ruta */
+.contenedorPadre {
+  width: 100%;
+  background-color: #fdfaf5; /* Fondo crema base */
+}
+
+/* Pantalla de Entrada de Inicio */
+.inicio {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100vh; 
   overflow: hidden;
 }
 
-.slide {
+/* El Slider e Imagen de Fondo */
+.sliderContainer {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  height: 100vh;
+  z-index: 1;
 }
 
-.slide.active {
-  opacity: 1;
+.slide {
+  width: 100%;
+  height: 100%;
 }
 
 .slideImg {
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  filter: brightness(0.82); /* Un toque más de contraste para las letras blancas */
 }
 
-.slideContent {
+/* Navegación Flotante y Transparente */
+.navbarPrincipal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100; 
+  display: flex;
+  justify-content: center;
+  padding: 45px 0;
+}
+
+.enlacesNav {
+  display: flex;
+  gap: 55px; 
+  align-items: center;
+}
+
+.enlacesNav a, .btnContactoNav {
+  text-decoration: none;
+  color: #ffffff;
+  /* Cambio a Montserrat con un espaciado fino y elegante */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px; /* Las tipografías sans-serif lucen mejor un pelín más chicas en menús */
+  letter-spacing: 3px; /* Más espacio entre letras para un look luxury */
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.enlacesNav a:hover, .btnContactoNav:hover {
+  color: #d4af37; /* Dorado alpaca */
+}
+
+/* Dropdown de Contacto */
+.dropdownNav {
   position: relative;
-  z-index: 40;
+}
+
+.redesNavLista {
+  position: absolute;
+  top: 150%; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 20, 0.95); 
+  padding: 14px 18px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 160px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.redesNavLista a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px !important;
+  letter-spacing: 2px !important;
+  color: #ffffff !important;
+  font-weight: 400;
+}
+
+.redesNavLista a:hover {
+  color: #d4af37 !important;
+}
+
+/* Contenido Central (Botón del Slider) */
+.slideContent {
+  position: absolute;
+  top: 55%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
   text-align: center;
-  color: white;
+  width: 100%;
 }
 
 .btnSlider {
   background: transparent;
-  color: #fff;
-  border: 1px solid #fff;
+  color: #ffffff;
+  border: 1.5px solid #ffffff;
   padding: 15px 40px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   text-transform: uppercase;
+  letter-spacing: 4px; /* Súper espaciado para denotar diseño de autor */
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.btnSlider:hover {
+  background: #ffffff;
+  color: #111111;
+  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25);
+}
+
+
+.seccionSobreNosotros {
+  min-height: 70vh;
+  background-color: #fdfaf5; /* Fondo crema premium */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 40px; /* Más espacio a los costados */
+}
+
+.contenedorHistoria {
+  display: flex;
+  max-width: 1100px; /* Ancho máximo para que no se desparrame en monitores grandes */
+  width: 100%;
+  align-items: center; /* Centra verticalmente el texto con la imagen */
+  gap: 60px; /* Espacio elegante de separación entre el texto y la foto */
+}
+
+.contenidoSobreNosotros {
+  flex: 1; /* Toma el 50% del espacio */
+  text-align: left; /* Clave: Alínea el texto a la izquierda */
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contenidoSobreNosotros h2 {
+  font-size: 2.2rem;
+  color: #2b1810; /* Marrón chocolate oscuro */
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.contenidoSobreNosotros p {
+  font-size: 1.15rem;
+  line-height: 2;
+  color: #614e47; /* Tono cuero */
+  font-weight: 300;
+}
+
+.columnaImagenHistoria {
+  flex: 1; /* Toma el otro 50% del espacio */
+  display: flex;
+  justify-content: center;
+}
+
+.imagenHistoria {
+  width: 100%;
+  max-width: 480px; /* Evita que la foto se haga gigante */
+  height: 440px; /* Altura fija inicial regulada en proporción al bloque de texto */
+  object-fit: cover; /* Clave: Recorta y adapta la foto al recuadro de manera perfecta */
+  border-radius: 8px; /* Bordes suavemente redondeados para un look moderno */
+  box-shadow: 0 12px 30px rgba(43, 24, 16, 0.15); /* Sombra suave color cuero para dar profundidad */
+}
+
+@media (max-width: 768px) {
+  .contenedorHistoria {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .contenidoSobreNosotros {
+    text-align: center; /* En celular queda mejor centrado */
+  }
+
+  .imagenHistoria {
+    height: 280px;
+  }
 }
