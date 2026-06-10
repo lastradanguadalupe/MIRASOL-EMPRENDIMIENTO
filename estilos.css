@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@300;400;700&display=swap');
+
+:root {
+  --color-text: #3d3737;
+  --color-bg: #5c4129;
+  --color-link: #f8e8e8;
+  --color-link-hover: #faeaea;
+}
+
+body {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+button {
+  cursor: pointer;
+  transition: 0.3s;
+}

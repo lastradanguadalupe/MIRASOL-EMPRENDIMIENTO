@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.catalogo {
+  min-height: 100vh;
+  background-color: #fcfaf7; /* Fondo crema muy sutil */
+  font-family: 'Montserrat', sans-serif;
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* Header del Catálogo */
+.headerTienda {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.headerTienda h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2b1810; /* Marrón chocolate oscuro */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+/* Logo en la Esquina Superior Derecha */
+.contenedorLogoEsquina {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  z-index: 50;
+}
+
+.logoMarca {
+  width: 55px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logoMarca:hover {
+  transform: scale(1.05);
+}
+
+/* Botón Hamburguesa de Filtros (Esquina Superior Izquierda) */
+.menuFiltrosIcono {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.menuFiltrosIcono span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #2b1810;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Botón Flotante Carrito (Abajo a la derecha) */
+.botonFlotante {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #2b1810;
+  color: #ffffff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 50px; /* Redondeado tipo píldora */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(43, 24, 16, 0.3);
+  z-index: 90;
+  transition: all 0.3s ease;
+}
+
+.botonFlotante:hover {
+  background-color: #d4af37; /* Dorado al pasar el mouse */
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* CONTENEDOR PRINCIPAL: Centra la grilla de productos */
+.grillaProductos {
+  display: grid;
+  /* CLAVE: Cambiamos auto-fit por auto-fill */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 35px;
+  max-width: 1200px;
+  margin: 0 auto; 
+  padding: 20px;
+}
+
+/* Tarjeta de Producto Premium */
+.tarjetaMate {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(43, 24, 16, 0.04); /* Sombra súper sutil */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f3efeb;
+}
+
+.tarjetaMate:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(43, 24, 16, 0.09);
+}
+
+.tarjetaMate img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover; /* Recorta la foto proporcionalmente */
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  background-color: #fcfcfc;
+}
+
+.tarjetaMate h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2b1810;
+  margin: 10px 0;
+  line-height: 1.4;
+  min-height: 44px; /* Mantiene alineados los títulos de dos líneas */
+}
+
+.tarjetaMate p {
+  font-size: 0.85rem;
+  color: #70625c;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-weight: 300;
+  min-height: 80px; /* Alinea los textos de descripción */
+}
+
+.precio {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2b1810;
+}
+
+/* Botón Agregar al Carrito Interno */
+.tarjetaMate button {
+  background-color: transparent;
+  color: #2b1810;
+  border: 1.5px solid #2b1810;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.tarjetaMate button:hover {
+  background-color: #2b1810;
+  color: #ffffff;
+}
+
+.sidebarFiltros {
+  position: fixed;
+  left: -290px; /* Completamente oculto */
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  padding: 50px 30px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.0);
+  z-index: 999; /* Máxima prioridad: se dibuja por encima de los productos y botones */
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animación de apertura suave */
+  font-family: 'Montserrat', sans-serif;
+}
+
+.sidebarFiltros.open {
+  left: 0;
+  box-shadow: 10px 0 40px rgba(43, 24, 16, 0.15); /* Sombra elegante sobre el catálogo */
+}
+
+.sidebarFiltros ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+}
+
+.sidebarFiltros li {
+  margin: 20px 0;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.sidebarFiltros li:hover {
+  color: #d4af37;
+}
+
+.cerrarFiltros {
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: #2b1810;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px; /* Empujado hacia adentro para que sea perfectamente visible y clickeable */
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.cerrarFiltros:hover {
+  color: #d4af37; /* Se vuelve dorado al posicionarse encima */
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .headerTienda h2 {
+    font-size: 1.6rem;
+  }
+  .contenedorLogoEsquina {
+    right: 20px;
+    top: 20px;
+  }
+  .menuFiltrosIcono {
+    left: 20px;
+    top: 25px;
+  }
+  .grillaProductos {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}

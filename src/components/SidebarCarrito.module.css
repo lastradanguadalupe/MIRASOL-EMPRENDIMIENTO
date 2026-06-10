@@ -1,0 +1,147 @@
+.sidebarCarrito {
+  position: fixed;
+  right: -350px; /* Escondido totalmente a la derecha */
+  top: 0;
+  width: 340px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.0);
+  z-index: 1000; /* Por encima del menú de filtros */
+  display: flex;
+  flex-direction: column;
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.sidebarCarrito.open {
+  right: 0; /* Entra a la pantalla */
+  box-shadow: -10px 0 40px rgba(43, 24, 16, 0.15);
+}
+
+.cerrarCarrito {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #2b1810;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  line-height: 1;
+}
+
+.sidebarCarrito h2 {
+  text-align: center;
+  margin-top: 25px;
+  font-family: 'Playfair Display', serif;
+  color: #2b1810;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #f4f1ee;
+  padding-bottom: 15px;
+}
+
+.contenidoCarrito {
+  flex: 1;
+  overflow-y: auto; /* Permite scroll si el usuario agrega muchos mates */
+  padding: 20px;
+}
+
+.carritoVacio {
+  text-align: center;
+  color: #70625c;
+  font-style: italic;
+  margin-top: 40px;
+}
+
+.listaProductos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listaProductos li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f4f1ee;
+}
+
+.infoItem h4 {
+  font-size: 0.95rem;
+  margin: 0 0 5px 0;
+  color: #2b1810;
+  font-weight: 600;
+}
+
+.infoItem p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #70625c;
+}
+
+.subtotalItem {
+  font-weight: 600;
+  color: #2b1810;
+  font-size: 0.95rem;
+}
+
+/* Footer con el total y botón */
+.footerCarrito {
+  background-color: #f4f1ee;
+  padding: 25px 20px;
+}
+
+.totalContenedor {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2b1810;
+  margin-bottom: 15px;
+}
+
+.precioTotal {
+  color: #2e7d32; /* Verde éxito para el precio */
+}
+
+.btnConfirmar {
+  width: 100%;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s ease;
+}
+
+.btnConfirmar:hover {
+  background-color: #218838;
+}
+
+.accionesItem {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre el precio y la cruz */
+}
+
+.btnBorrar {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #a09088; /* Un gris/marrón suave inicial */
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btnBorrar:hover {
+  color: #d32f2f; /* Rojo de advertencia al posicionarse encima */
+  transform: scale(1.15); /* Efecto pop sutil */
+}

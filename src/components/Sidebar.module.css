@@ -1,0 +1,38 @@
+.hamburger {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  margin: 10px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* oculto por defecto */
+  width: 250px;
+  height: 100vh;
+  background: #222;
+  color: #fff;
+  padding: 20px;
+  transition: left 0.3s ease;
+}
+
+.sidebar.open {
+  left: 0; /* aparece cuando está abierto */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+}
