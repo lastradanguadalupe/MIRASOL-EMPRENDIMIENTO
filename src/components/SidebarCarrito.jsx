@@ -12,26 +12,40 @@ function SidebarCarrito({ isOpen, onClose, carrito, onEliminarItem }) {
       <button className={styles.cerrarCarrito} onClick={onClose}>&times;</button>
       
       <h2>Tu Carrito</h2>
+      {carrito.length > 0 && (
+        <p className={styles.contadorItems}>
+          {carrito.reduce((acc, item) => acc + item.cantidad, 0)} producto(s)
+        </p>
+      )}
 
       <div className={styles.contenidoCarrito}>
         {carrito.length === 0 ? (
-          <p className={styles.carritoVacio}>Tu carrito está vacío. ¡Elegí un buen mate para empezar!</p>
+          <div className={styles.carritoVacio}>
+            <span className={styles.iconoVacio}>🧉</span>
+            <p>Tu carrito está vacío.<br />¡Elegí un buen mate para empezar!</p>
+          </div>
         ) : (
           <ul className={styles.listaProductos}>
             {carrito.map((item) => (
               <li key={item.id} className={styles.itemCarrito}>
+                <img
+                  className={styles.miniaturaItem}
+                  src={item.imagen_url || './assets/placeholder.jpeg'}
+                  alt={item.nombre}
+                  onError={(e) => { e.target.src = './assets/placeholder.jpeg'; }}
+                />
                 <div className={styles.infoItem}>
-                  <h4>{item.titulo}</h4>
+                  <h4>{item.nombre}</h4>
                   <p>{item.cantidad} x ${item.precio.toLocaleString('es-AR')}</p>
                 </div>
                 
-                {/* Contenedor derecho: subtotal + botón de borrar */}
+                
                 <div className={styles.accionesItem}>
                   <span className={styles.subtotalItem}>
                     ${(item.precio * item.cantidad).toLocaleString('es-AR')}
                   </span>
                   
-                  {/* BOTÓN DE BORRAR: Ejecuta la función pasando el id del mate */}
+                  
                   <button 
                     className={styles.btnBorrar} 
                     onClick={() => onEliminarItem(item.id)}

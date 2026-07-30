@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Pago.module.css';
 import { supabase } from './lib/supabaseClient';
-import emailjs from '@emailjs/browser';
 
 function Pago({ carrito }) {
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ function Pago({ carrito }) {
   });
 
   const [enviando, setEnviando] = useState(false);
-  const [pedidoConfirmado, setPedidoConfirmado] = useState(false);
 
   
   const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
@@ -25,7 +23,7 @@ function Pago({ carrito }) {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };
 
-  // Guarda el pedido en Supabase, envía el mail con el detalle y muestra la confirmación
+  // FUNCIÓN MÁGICA: Guarda el pedido en Supabase, arma el mensaje y abre WhatsApp
   const enviarPedidoFinal = async () => {
     if (!datos.nombre || !datos.telefono || !datos.direccion) {
       alert("Por favor, completa todos los datos para el envío.");
@@ -49,38 +47,30 @@ function Pago({ carrito }) {
       total: total
     });
 
+    setEnviando(false);
+
     if (error) {
       console.error('Error guardando el pedido:', error);
-      setEnviando(false);
       alert("Hubo un problema guardando tu pedido. Por favor, intentá de nuevo.");
       return;
     }
 
-    // Armamos el detalle de productos para el mail
-    const listaProductos = carrito.map(item => `${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})`).join('\n');
+    // Armamos la lista de productos para el mensaje
+    const listaProductos = carrito.map(item => `- ${item.cantidad}x ${item.titulo} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})`).join('\n');
+    
+    const mensaje = `¡Hola Mirasol! 👋
+Mi nombre es *${datos.nombre}*. Quisiera finalizar la siguiente compra:
 
-    // Enviamos el mail con los detalles de la venta (si falla, el pedido ya quedó guardado igual)
-    try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          nombre_cliente: datos.nombre,
-          telefono: datos.telefono,
-          direccion: datos.direccion,
-          metodo_pago: datos.metodo,
-          items: listaProductos,
-          total: total.toLocaleString('es-AR'),
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-    } catch (emailError) {
-      console.error('Error enviando el mail de notificación:', emailError);
-      // No interrumpimos al cliente por esto: el pedido ya está guardado en Supabase
-    }
+*Detalle del pedido:*
+${listaProductos}
 
-    setEnviando(false);
-    setPedidoConfirmado(true);
+*Total:* $${total.toLocaleString('es-AR')}
+*Método de Pago:* ${datos.metodo}
+*Dirección de entrega:* ${datos.direccion}
+*Teléfono:* ${datos.telefono}`;
+
+    const url = `https://wa.me/543875032696?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
   };
 
   return (
@@ -96,37 +86,26 @@ function Pago({ carrito }) {
     
     
       <main className={styles.cuerpoPago}>
-        {pedidoConfirmado ? (
-          <div className={styles.cardConfirmacion}>
-            <span className={styles.iconoConfirmacion}>🧉</span>
-            <h2>¡Gracias por tu pedido, {datos.nombre.split(' ')[0]}!</h2>
-            <p>En breve estaremos comunicándonos con vos para coordinar la entrega y el pago.</p>
-            <button className={styles.btnVolverCatalogo} onClick={() => navigate('/catalogo')}>
-              Volver al catálogo
-            </button>
-          </div>
-        ) : (
         <div className={styles.cardPago}>
           
           
           <section className={styles.seccionFormulario}>
-            <span className={styles.eyebrow}>Último paso</span>
             <h2>Datos de Entrega</h2>
             <form className={styles.formulario}>
               <div className={styles.grupoInput}>
-                <label>👤 Nombre y Apellido</label>
+                <label>Nombre y Apellido</label>
                 <input type="text" name="nombre" placeholder="Ej: Juan Pérez" onChange={handleChange} required />
               </div>
               <div className={styles.grupoInput}>
-                <label>📱 Teléfono</label>
+                <label>Teléfono</label>
                 <input type="text" name="telefono" placeholder="Ej: 3875000000" onChange={handleChange} required />
               </div>
               <div className={styles.grupoInput}>
-                <label>📍 Dirección (Salta Capital)</label>
+                <label>Dirección (Salta Capital)</label>
                 <textarea name="direccion" placeholder="Calle, número, barrio y referencias" onChange={handleChange} required></textarea>
               </div>
               <div className={styles.grupoInput}>
-                <label>💳 Método de Pago</label>
+                <label>Método de Pago</label>
                 <select name="metodo" onChange={handleChange}>
                   <option value="Transferencia Bancaria">Transferencia (CBU / Alias)</option>
                   <option value="Efectivo al recibir">Efectivo</option>
@@ -142,7 +121,7 @@ function Pago({ carrito }) {
             <div className={styles.listaResumen}>
               {carrito.map(item => (
                 <div key={item.id} className={styles.itemResumen}>
-                  <span>{item.cantidad}x {item.nombre}</span>
+                  <span>{item.cantidad}x {item.titulo}</span>
                   <span className={styles.precioItem}>${(item.precio * item.cantidad).toLocaleString('es-AR')}</span>
                 </div>
               ))}
@@ -161,12 +140,11 @@ function Pago({ carrito }) {
             </div>
 
             <button className={styles.btnFinalizar} onClick={enviarPedidoFinal} disabled={enviando}>
-              {enviando ? 'Guardando pedido...' : 'Finalizar'}
+              {enviando ? 'Guardando pedido...' : 'Finalizar por WhatsApp'}
             </button>
           </section>
 
         </div>
-        )}
       </main>
     </div>
   );

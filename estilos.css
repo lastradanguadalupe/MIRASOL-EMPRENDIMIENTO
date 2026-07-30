@@ -1,15 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
-  --color-text: #3d3737;
-  --color-bg: #5c4129;
-  --color-link: #f8e8e8;
-  --color-link-hover: #faeaea;
+  --color-text: #2b1810;      
+  --color-bg: #fcfaf7;        
+  --color-accent: #d4af37;    
+  --color-link: #2b1810;
+  --color-link-hover: #d4af37;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: "Oswald", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
   scroll-behavior: smooth;
@@ -28,4 +33,9 @@ a:hover {
 button {
   cursor: pointer;
   transition: 0.3s;
+  font-family: 'Montserrat', sans-serif;
+}
+
+img {
+  max-width: 100%;
 }

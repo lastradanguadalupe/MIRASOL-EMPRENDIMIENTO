@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap');
 
 /* Contenedor global de la ruta */
 .contenedorPadre {
@@ -36,6 +36,32 @@
   background-position: center; 
   background-repeat: no-repeat;
   filter: brightness(0.82); /* Un toque más de contraste para las letras blancas */
+}
+
+/* Divisor curvo que conecta el hero con la sección siguiente */
+.divisorOnda {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 5;
+}
+
+.divisorOnda svg {
+  display: block;
+  width: 100%;
+  height: 70px;
+}
+
+.divisorOnda path {
+  fill: #fdfaf5;
+}
+
+@media (max-width: 768px) {
+  .divisorOnda svg {
+    height: 40px;
+  }
 }
 
 /* Navegación Flotante y Transparente */
@@ -163,13 +189,31 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.contenidoSobreNosotros h2 {
-  font-size: 2.2rem;
-  color: #2b1810; /* Marrón chocolate oscuro */
-  margin-bottom: 25px;
-  font-weight: 700;
-  letter-spacing: 2px;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #b8935a;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background-color: #d4af37;
+}
+
+.contenidoSobreNosotros h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  color: #2b1810; /* Marrón chocolate oscuro */
+  margin: 0 0 25px 0;
+  font-weight: 700;
 }
 
 .contenidoSobreNosotros p {
@@ -185,13 +229,32 @@
   justify-content: center;
 }
 
-.imagenHistoria {
+.marcoImagen {
+  position: relative;
   width: 100%;
-  max-width: 480px; /* Evita que la foto se haga gigante */
+  max-width: 480px;
+}
+
+.marcoImagen::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid #d4af37;
+  border-radius: 8px;
+  z-index: 0;
+}
+
+.imagenHistoria {
+  position: relative;
+  width: 100%;
   height: 440px; /* Altura fija inicial regulada en proporción al bloque de texto */
   object-fit: cover; /* Clave: Recorta y adapta la foto al recuadro de manera perfecta */
   border-radius: 8px; /* Bordes suavemente redondeados para un look moderno */
   box-shadow: 0 12px 30px rgba(43, 24, 16, 0.15); /* Sombra suave color cuero para dar profundidad */
+  z-index: 1;
 }
 
 @media (max-width: 768px) {

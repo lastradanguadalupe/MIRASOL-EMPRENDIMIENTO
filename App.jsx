@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Inicio from './src/components/Inicio';
 import Catalogo from './src/components/Catalogo';
 import Pago from './src/components/Pago';
+import AdminLogin from './src/components/AdminLogin';
+import AdminPedidos from './src/components/AdminPedidos';
 
 function App() {
   // ESTADO GLOBAL DEL CARRITO
@@ -44,6 +46,10 @@ function App() {
         } />
 
         <Route path="/pago" element={<Pago carrito={carrito} />} />
+
+        {/* Panel de administración */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/pedidos" element={<AdminPedidos />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,127 @@
+.contenedor {
+  min-height: 100vh;
+  background-color: #fcfaf7;
+  font-family: 'Montserrat', sans-serif;
+  padding: 40px 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto 30px auto;
+}
+
+.header h2 {
+  color: #2b1810;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btnSalir {
+  background: none;
+  border: 1.5px solid #2b1810;
+  color: #2b1810;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnSalir:hover {
+  background-color: #2b1810;
+  color: #ffffff;
+}
+
+.mensajeCentro {
+  text-align: center;
+  color: #70625c;
+  margin-top: 60px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.listaPedidos {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tarjetaPedido {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #f3efeb;
+  box-shadow: 0 4px 14px rgba(43, 24, 16, 0.04);
+  overflow: hidden;
+}
+
+.resumenPedido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  cursor: pointer;
+}
+
+.resumenPedido strong {
+  color: #2b1810;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.fecha {
+  color: #a68b77;
+  font-size: 0.78rem;
+}
+
+.derechaResumen {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.estado {
+  background-color: #fdf3e0;
+  color: #b8860b;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.total {
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.detalle {
+  padding: 0 22px 22px 22px;
+  border-top: 1px solid #f4f1ee;
+  padding-top: 16px;
+  font-size: 0.88rem;
+  color: #5d4037;
+}
+
+.detalle p {
+  margin: 6px 0;
+}
+
+.items {
+  margin-top: 14px;
+}
+
+.items ul {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+}
+
+.items li {
+  margin-bottom: 4px;
+}

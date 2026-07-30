@@ -56,6 +56,12 @@ function Inicio() {
             </div>
           </div>
         </div>
+
+        <div className={styles.divisorOnda}>
+          <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,60 C320,110 1120,0 1440,55 L1440,100 L0,100 Z" />
+          </svg>
+        </div>
       </div>
 
      
@@ -64,6 +70,7 @@ function Inicio() {
     
     {/* Columna Izquierda: Texto */}
     <div className={styles.contenidoSobreNosotros}>
+      <span className={styles.eyebrow}>Tradición Salteña</span>
       <h2>Nuestra Historia</h2>
       <p>
         En Mirasol, seleccionamos cada pieza pensando en la tradición de nuestra tierra. 
@@ -74,11 +81,13 @@ function Inicio() {
 
     {/* Columna Derecha: Imagen proporcional */}
     <div className={styles.columnaImagenHistoria}>
-      <img 
-        src="./assets/posfon2.jpeg" 
-        alt="Artesanía y tradición Mirasol" 
-        className={styles.imagenHistoria}
-      />
+      <div className={styles.marcoImagen}>
+        <img 
+          src="./assets/posfon2.jpeg" 
+          alt="Artesanía y tradición Mirasol" 
+          className={styles.imagenHistoria}
+        />
+      </div>
     </div>
 
     </div>

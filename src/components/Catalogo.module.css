@@ -123,14 +123,34 @@
   box-shadow: 0 12px 30px rgba(43, 24, 16, 0.09);
 }
 
-.tarjetaMate img {
+.contenedorImagen {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.contenedorImagen img {
+  display: block;
   width: 100%;
   height: 240px;
   object-fit: cover; /* Recorta la foto proporcionalmente */
   border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 15px;
-  background-color: #fcfcfc;
+  background-color: #f4f1ee;
+}
+
+.badgeTipo {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #2b1810;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  z-index: 2;
 }
 
 .tarjetaMate h3 {
@@ -216,6 +236,18 @@
 
 .sidebarFiltros li:hover {
   color: #d4af37;
+}
+
+.separadorFiltro {
+  height: 1px;
+  background-color: #f0ece7;
+  margin: 20px 0 !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+.separadorFiltro:hover {
+  color: inherit;
 }
 
 .cerrarFiltros {

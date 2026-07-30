@@ -1,0 +1,92 @@
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fcfaf7;
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 45px 40px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(43, 24, 16, 0.09);
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid #f3efeb;
+}
+
+.card h2 {
+  color: #2b1810;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #a68b77;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 6px 0 30px 0;
+}
+
+.grupoInput {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grupoInput label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #70625c;
+  margin-bottom: 6px;
+}
+
+.grupoInput input {
+  padding: 11px 12px;
+  border: 1px solid #e0ddd9;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+}
+
+.grupoInput input:focus {
+  border-color: #d4af37;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: -8px 0 16px 0;
+}
+
+.card button {
+  width: 100%;
+  background-color: #2b1810;
+  color: #ffffff;
+  border: none;
+  padding: 13px;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #d4af37;
+}
+
+.card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
